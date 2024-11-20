@@ -1,0 +1,14 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+
+proto_library(
+    name = "bazel_flags_proto",
+    srcs = [":bazel_flags.proto"],
+)
+
+java_proto_library(
+    name = "bazel_flags",
+    deps = [":bazel_flags_proto"],
+    visibility = [
+        "//src/main/kotlin:__pkg__",
+    ],
+)

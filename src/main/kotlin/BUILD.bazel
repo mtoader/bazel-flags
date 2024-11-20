@@ -1,0 +1,26 @@
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_binary", "kt_jvm_library")
+
+kt_jvm_library(
+    name = "generator_lib",
+    srcs = [
+        "generator/Flag.kt",
+        "generator/overrides.kt",
+    ],
+    deps = [
+        "//src/main/proto:bazel_flags",
+    ],
+)
+
+kt_jvm_binary(
+    name = "generator",
+    main_class = "generator.MainKt",
+    srcs = ["generator/Main.kt"],
+    visibility = [
+        "//visibility:public"
+    ],
+    deps = [
+        "//src/main/proto:bazel_flags",
+        ":generator_lib",
+        "@maven//:com_github_ajalt_clikt_clikt_core_jvm"
+    ],
+)

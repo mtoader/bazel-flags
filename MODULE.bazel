@@ -1,0 +1,30 @@
+module(name = "bazel-flags")
+
+bazel_dep(name = "rules_kotlin", version = "2.0.0")
+bazel_dep(name = "rules_proto", version = "7.0.2")
+bazel_dep(name = "rules_jvm_external", version = "6.5")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    artifacts = [
+        "com.github.ajalt.clikt:clikt-core-jvm:5.0.1",
+    ],
+    repositories = [
+        "https://repo1.maven.org/maven2",
+    ],
+)
+use_repo(maven, "maven")
+
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "bazel_7.4.1",
+    integrity = "sha256-6vNOiW0AaUm0X7hlNwcUTcoSI4FMQlnPK0lMa9BKbYk=",
+    url = "https://github.com/bazelbuild/bazel/archive/refs/tags/7.4.1.tar.gz",
+)
+
+http_file(
+    name = "bazel_8.0.0rc2",
+    integrity = "sha256-ypoCm6WtL0liejhmLKc7ZdRN0St7d9ZIYr3KGDmtdkQ=",
+    url = "https://github.com/bazelbuild/bazel/archive/refs/tags/8.0.0rc2.tar.gz",
+)
