@@ -1,1 +1,0 @@
-exports_files(["export-flags.patch"])
