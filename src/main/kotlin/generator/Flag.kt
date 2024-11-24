@@ -2,9 +2,12 @@ package generator
 
 import bazel.flags.BazelFlagsProto
 import java.io.PrintWriter
+import kotlin.text.Regex
 
 const val RAW_LIT_QUOTE = "\"\"\"";
 const val INDENT = "  "
+
+val RAW_STRING_CONTENT = Regex("""[\n"\\]""")
 
 class Flag(val f: BazelFlagsProto.FlagInfo) {
   fun print(w: PrintWriter) {
@@ -121,7 +124,7 @@ class Flag(val f: BazelFlagsProto.FlagInfo) {
     get() = f.defaultValue?.let {
       when {
         it in listOf("null", "see description") -> null
-        it.contains('"') -> """defaultValue = $RAW_LIT_QUOTE$it$RAW_LIT_QUOTE"""
+        it.contains(RAW_STRING_CONTENT) -> """defaultValue = $RAW_LIT_QUOTE$it$RAW_LIT_QUOTE"""
         else -> """defaultValue = "$it""""
       }
     }
@@ -135,7 +138,7 @@ class Flag(val f: BazelFlagsProto.FlagInfo) {
           |$RAW_LIT_QUOTE
         """.trimMargin()
 
-        it.contains("\n") -> "help = $RAW_LIT_QUOTE$it$RAW_LIT_QUOTE"
+        it.contains(RAW_STRING_CONTENT) -> "help = $RAW_LIT_QUOTE$it$RAW_LIT_QUOTE"
 
         else -> """help = "$it""""
       }

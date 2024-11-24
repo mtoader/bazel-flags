@@ -24,7 +24,7 @@ http_file(
 )
 
 http_file(
-    name = "bazel_8.0.0rc2",
-    integrity = "sha256-ypoCm6WtL0liejhmLKc7ZdRN0St7d9ZIYr3KGDmtdkQ=",
-    url = "https://github.com/bazelbuild/bazel/archive/refs/tags/8.0.0rc2.tar.gz",
+    name = "bazel_8.0.0rc3",
+    integrity = "sha256-Fxf9W+fDE/0dHzprm2fcokT6LoMKo1QJeRh2LH8UhRY=",
+    url = "https://github.com/bazelbuild/bazel/archive/refs/tags/8.0.0rc3.tar.gz",
 )

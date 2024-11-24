@@ -3,10 +3,10 @@ load(":versions.bzl", "BAZEL_VERSIONS")
 NAMES = [{
     "v": version,
     "bazel-repository": "@bazel_%s//file" % version,
-    "patch": "//third_party/bazel/%s:export-flags.patch" % version,
+    "patch": "//bazel/%s:export-flags.patch" % version,
     "bazel-dev-jar": "bazel-dev-%s" % version,
-    "flags-file": "KnownFlags_%s" % version,
-} for version in BAZEL_VERSIONS]
+    "flags-file": "FlagsBazel%s" % shortVersion,
+} for [version, shortVersion] in BAZEL_VERSIONS]
 
 [genrule(
     name = "build-%s" % n["bazel-dev-jar"],
@@ -48,9 +48,7 @@ NAMES = [{
     cmd = """
         $(location //src/main/kotlin:generator) \
             --bazel-binary=$(location {bazel_dev_jar}.jar) \
-            --target=known_flags.kt
-
-        cp known_flags.kt $@
+            --target=$@
     """.format(bazel_dev_jar = n["bazel-dev-jar"]),
 ) for n in NAMES]
 
