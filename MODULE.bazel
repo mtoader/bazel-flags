@@ -24,7 +24,19 @@ http_file(
 )
 
 http_file(
-    name = "bazel_8.0.0rc3",
-    integrity = "sha256-Fxf9W+fDE/0dHzprm2fcokT6LoMKo1QJeRh2LH8UhRY=",
-    url = "https://github.com/bazelbuild/bazel/archive/refs/tags/8.0.0rc3.tar.gz",
+    name = "bazel_7.5.0",
+    integrity = "sha256-XK6pw/kHmNotiL3AFVP/6lQTDQFX7iA9KOajqvhUspo=",
+    url = "https://github.com/bazelbuild/bazel/archive/refs/tags/7.5.0.tar.gz",
+)
+
+http_file(
+    name = "bazel_8.0.1",
+    integrity = "sha256-1RkOrSf1u0LkcI0rr9R4NWU5VzYSlR+AiGMmW/9xBOQ=",
+    url = "https://github.com/bazelbuild/bazel/archive/refs/tags/8.0.1.tar.gz",
+)
+
+http_file(
+    name = "bazel_8.1.0",
+    integrity = "sha256-vCtAyeS/4X3WDirf9H+tdaNHiLmzSW5PhJbjcwBm22k=",
+    url = "https://github.com/bazelbuild/bazel/archive/refs/tags/8.1.0.tar.gz",
 )

@@ -1,0 +1,40 @@
+diff --git i/src/main/java/com/google/devtools/build/lib/runtime/commands/HelpCommand.java w/src/main/java/com/google/devtools/build/lib/runtime/commands/HelpCommand.java
+index edbe662bd1..ef425063e0 100644
+--- i/src/main/java/com/google/devtools/build/lib/runtime/commands/HelpCommand.java
++++ w/src/main/java/com/google/devtools/build/lib/runtime/commands/HelpCommand.java
+@@ -275,6 +275,18 @@ public final class HelpCommand implements BlazeCommand {
+     flagBuilder.setDocumentation(option.getHelpText());
+     flagBuilder.setAllowsMultiple(option.allowsMultiple());
+     flagBuilder.setRequiresValue(option.requiresValue());
++    flagBuilder.setOldName(option.getOldOptionName());
++    flagBuilder.setOldNameWarning(option.getOldNameWarning());
++    if (!option.getType().equals(Void.class)) {
++      flagBuilder.setTypeSpec(option.getConverter().getTypeDescription());
++    }
++    String defaultValueStr = option.getUnparsedDefaultValue();
++    if (defaultValueStr != "null") {
++      flagBuilder.setDefaultValue(defaultValueStr);
++    }
++    flagBuilder.addAllExpansion(
++        Arrays.stream(option.getOptionExpansion())
++              .collect(Collectors.toList()));
+
+     List<String> optionEffectTags =
+         Arrays.stream(option.getOptionEffectTags())
+diff --git i/src/main/protobuf/bazel_flags.proto w/src/main/protobuf/bazel_flags.proto
+index 1ed9969b33..2b94dd5de8 100644
+--- i/src/main/protobuf/bazel_flags.proto
++++ w/src/main/protobuf/bazel_flags.proto
+@@ -46,6 +46,12 @@ message FlagInfo {
+   // but if true a value must be present for all instantiations of the flag,
+   // e.g. --jobs=100.
+   optional bool requires_value = 10;
++
++  optional string type_spec = 100;
++  optional string default_value = 101;
++  repeated string expansion = 102;
++  optional string old_name = 103;
++  optional bool old_name_warning = 104 [default = true];
+ }
+ 
+ message FlagCollection {

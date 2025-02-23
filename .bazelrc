@@ -1,1 +1,4 @@
 common  --enable_bzlmod
+
+
+build:tests --noexperimental_action_cache_store_output_metadata=asdfasdf --noexperimental_action_cache_store_output_metadata

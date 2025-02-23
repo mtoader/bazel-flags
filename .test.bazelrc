@@ -1,0 +1,6 @@
+common --@rules_jvm//:default-kotlinc-opts=@community//:k17
+
+build --//src/kotlin/main/com/ergatta/device:default_device=watererr
+
+
+common --expand_configs_in_place --asdf --asdf --asdfs
